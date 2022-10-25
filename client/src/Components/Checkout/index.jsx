@@ -55,7 +55,7 @@ export const Checkout = () => {
 
 
     setIsProcessing(true);
-    const response = await fetch('http://localhost:3030/payment', {
+    const response = await fetch('http://localhost:3030/api/payment', {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({amount: total})

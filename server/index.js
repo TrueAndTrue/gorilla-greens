@@ -10,11 +10,11 @@ app.use(express.json());
 app.use(cors());
 
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send("WORKING")
 })
 
-app.post('/payment', async (req, res) => {
+app.post('/api/payment', async (req, res) => {
   try {
     
     const { amount } = req.body;
