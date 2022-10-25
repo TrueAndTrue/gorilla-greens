@@ -4,7 +4,7 @@ const stripe = require('stripe')('sk_test_51Lv7CLJxmJrVuGJsDzI20YnZk55Jr8TwzwV0C
 const app = express();
 const { v4 } = require('uuid');
 const path = require('path');
-const publicPath = path.join(__dirname, '..', 'client/public');
+const publicPath = path.join(__dirname, 'build');
 
 console.log(publicPath)
 
@@ -13,11 +13,13 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static(publicPath))
+if (NODE_ENV === 'production') {
+  app.use(express.static('build'))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  });
+}
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
 
 app.get('/api', (req, res) => {
   res.send("WORKING")
