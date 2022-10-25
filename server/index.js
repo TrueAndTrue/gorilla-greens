@@ -14,11 +14,6 @@ app.use(express.static(path.join(__dirname, 'build')))
 
 app.use(express.json());
 app.use(cors());
-if (NODE_ENV === 'production') {
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-}
 
 
 app.get('/api', (req, res) => {
@@ -36,13 +31,19 @@ app.post('/api/payment', async (req, res) => {
       currency: 'cad',
       payment_method_types: ['card'],
     });
-
+    
     res.status(200).json(paymentIntent.client_secret)
   } catch (error) {
     res.status(500).json({ statusCode: 500, message: error.message })
   }
-
+  
 })
+
+if (NODE_ENV === 'production') {
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
 
 app.listen(PORT, () => {
   console.log('server running on 3030')
