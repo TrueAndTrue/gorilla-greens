@@ -11,11 +11,16 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 app.use(express.json());
 app.use(cors());
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send("WORKING")
 })
 
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath))
 
 app.post('/api/payment', async (req, res) => {
   try {
