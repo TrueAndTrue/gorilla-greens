@@ -3,8 +3,10 @@ const cors = require('cors');
 const stripe = require('stripe')('sk_test_51Lv7CLJxmJrVuGJsDzI20YnZk55Jr8TwzwV0CA1dBRDPZAKXyTXVa9HmnaKyR4TLFU3IybzhcSKkiGKQKkGKwrA300A2kDL8tX');
 const app = express();
 const { v4 } = require('uuid');
+const path = require('path');
 
 const PORT = process.env.PORT || 3030
+const NODE_ENV = process.env.NODE_ENV || 'development'
 
 app.use(express.json());
 app.use(cors());
@@ -13,6 +15,10 @@ app.use(cors());
 app.get('/api', (req, res) => {
   res.send("WORKING")
 })
+
+  app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+  })
 
 app.post('/api/payment', async (req, res) => {
   try {
