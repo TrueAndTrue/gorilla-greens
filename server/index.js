@@ -4,7 +4,9 @@ const stripe = require('stripe')('sk_test_51Lv7CLJxmJrVuGJsDzI20YnZk55Jr8TwzwV0C
 const app = express();
 const { v4 } = require('uuid');
 const path = require('path');
-const publicPath = path.join(__dirname, '..', 'public');
+const publicPath = path.join(__dirname, '..', 'client/public');
+
+console.log(publicPath)
 
 const PORT = process.env.PORT || 3030
 const NODE_ENV = process.env.NODE_ENV || 'development'
