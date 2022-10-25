@@ -4,6 +4,7 @@ const stripe = require('stripe')('sk_test_51Lv7CLJxmJrVuGJsDzI20YnZk55Jr8TwzwV0C
 const app = express();
 const { v4 } = require('uuid');
 const path = require('path');
+const publicPath = path.join(__dirname, '..', 'public');
 
 const PORT = process.env.PORT || 3030
 const NODE_ENV = process.env.NODE_ENV || 'development'
@@ -19,7 +20,6 @@ app.get('/api', (req, res) => {
   res.send("WORKING")
 })
 
-const publicPath = path.join(__dirname, '..', 'public');
 app.use(express.static(publicPath))
 
 app.post('/api/payment', async (req, res) => {
