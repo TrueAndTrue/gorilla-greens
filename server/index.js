@@ -10,14 +10,14 @@ console.log(publicPath)
 
 const PORT = process.env.PORT || 3030
 const NODE_ENV = process.env.NODE_ENV || 'development'
+app.use(express.static(path.resolve(__dirname, 'build', 'index.html')))
 
 app.use(express.json());
 app.use(cors());
 if (NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, 'build', 'index.html')))
-  // app.get('*', (req, res) => {
-  //   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-  // });
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  });
 }
 
 
