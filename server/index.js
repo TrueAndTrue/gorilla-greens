@@ -11,11 +11,8 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.send("WORKING")
 })
 
