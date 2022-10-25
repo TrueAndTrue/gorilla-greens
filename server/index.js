@@ -4,6 +4,7 @@ const stripe = require('stripe')('sk_test_51Lv7CLJxmJrVuGJsDzI20YnZk55Jr8TwzwV0C
 const app = express();
 const { v4 } = require('uuid');
 
+const PORT = process.env.PORT || 3030
 
 app.use(express.json());
 app.use(cors());
@@ -31,6 +32,6 @@ app.post('/payment', async (req, res) => {
 
 })
 
-app.listen(3030, () => {
+app.listen(PORT, () => {
   console.log('server running on 3030')
 })
