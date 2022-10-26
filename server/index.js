@@ -10,40 +10,40 @@ console.log(publicPath)
 
 const PORT = process.env.PORT || 3030
 const NODE_ENV = process.env.NODE_ENV || 'development'
-app.use(express.static(path.resolve(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 
-app.get('/api', (req, res) => {
-  res.send("WORKING")
-})
+// app.get('/api', (req, res) => {
+//   res.send("WORKING")
+// })
 
 
-app.post('/api/payment', async (req, res) => {
-  try {
+// app.post('/api/payment', async (req, res) => {
+//   try {
     
-    const { amount } = req.body;
+//     const { amount } = req.body;
     
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: 'cad',
-      payment_method_types: ['card'],
-    });
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount,
+//       currency: 'cad',
+//       payment_method_types: ['card'],
+//     });
     
-    res.status(200).json(paymentIntent.client_secret)
-  } catch (error) {
-    res.status(500).json({ statusCode: 500, message: error.message })
-  }
+//     res.status(200).json(paymentIntent.client_secret)
+//   } catch (error) {
+//     res.status(500).json({ statusCode: 500, message: error.message })
+//   }
   
-})
+// })
 
 if (NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
+  app.get('/*', (req, res) => {
     console.log('in')
     console.log(path)
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 }
 
