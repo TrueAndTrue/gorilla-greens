@@ -42,7 +42,7 @@ app.use(express.json());
 if (NODE_ENV === 'production') {
   app.get('/*', (req, res) => {
     console.log('in')
-    console.log(path)
+    console.log(path.join(`../${__dirname}/build/index.html`))
     res.sendFile(path.join(`../${__dirname}/build/index.html`));
   });
 }
