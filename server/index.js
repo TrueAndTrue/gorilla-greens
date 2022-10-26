@@ -10,7 +10,7 @@ console.log(publicPath)
 
 const PORT = process.env.PORT || 3030
 const NODE_ENV = process.env.NODE_ENV || 'development'
-app.use(express.static('client/build'));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.use(cors());
 app.use(express.json());
