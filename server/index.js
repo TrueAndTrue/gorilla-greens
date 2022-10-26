@@ -40,7 +40,10 @@ app.post('/api/payment', async (req, res) => {
 })
 
 if (NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
+  app.get('/about', (req, res) => {
+    console.log('in')
+    let path = req.params['0'].substring(1)
+    console.log(path)
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 }
