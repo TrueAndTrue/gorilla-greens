@@ -10,7 +10,7 @@ console.log(publicPath)
 
 const PORT = process.env.PORT || 3030
 const NODE_ENV = process.env.NODE_ENV || 'development'
-app.use(express.static('build/about'))
+app.use(express.static('build'))
 
 app.use(express.json());
 app.use(cors());
@@ -40,10 +40,10 @@ app.post('/api/payment', async (req, res) => {
 })
 
 if (NODE_ENV === 'production') {
-  app.get('/about', (req, res) => {
+  app.get('*', (req, res) => {
     console.log('in')
     console.log(path)
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
   });
 }
 
