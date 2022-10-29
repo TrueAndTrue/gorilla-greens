@@ -1,10 +1,12 @@
+let BASE_URL = '';
 
+process.env.NODE_ENV === 'production' ? BASE_URL = 'https://gorillag.herokuapp.com/api' : BASE_URL = "http://localhost:3030/api"
 
 
 export const apiCalls = {
 
   itemValidation: async (products, total) => {
-    const itemValidation = await fetch('http://localhost:3030/api/checkitems', {
+    const itemValidation = await fetch(`${BASE_URL}/checkitems`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -16,7 +18,7 @@ export const apiCalls = {
   },
 
   paymentIntent: async (total) => {
-    const response = await fetch('http://localhost:3030/api/payment', {
+    const response = await fetch(`${BASE_URL}/payment`, {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({amount: total})

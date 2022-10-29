@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { dollarify } from '../../utils/functions';
 import { resetProducts } from '../../state/reducers/product';
 import { resetTotal } from '../../state/reducers/total';
-import { apiCalls } from '../../utils/apiServer';
+import { apiCalls } from '../../utils/apiService';
 
 export const Checkout = () => {
 
