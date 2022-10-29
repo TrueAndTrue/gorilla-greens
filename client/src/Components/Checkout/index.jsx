@@ -57,11 +57,11 @@ export const Checkout = () => {
     }
 
 
-    const isValid = apiCalls.itemValidation(products, total);
+    const isValid = await apiCalls.itemValidation(products, total);
     console.log(isValid)
 
     setIsProcessing(true);
-    const clientSecret = apiCalls.paymentIntent(total);
+    const clientSecret = await apiCalls.paymentIntent(total);
     console.log(clientSecret)
 
     const cardElement = elements.getElement(CardElement);
