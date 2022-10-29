@@ -9,6 +9,7 @@ if (process.env.NODE_ENV == 'production') {
     port: 5432,
     host: "<heroku host>",
     logging: false,
+    ssl: true
   })
   module.exports = sequelize;
 }
