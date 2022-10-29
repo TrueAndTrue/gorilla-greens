@@ -19,10 +19,15 @@ export const productSlice = createSlice({
       if (isNew) {
         state.value.push([action.payload, 1])
       }
+    },
+    resetProducts: (state, action) => {
+      if (action.payload === true) {
+        state.value = [];
+      }
     }
   }
 });
 
-export const { addProduct } = productSlice.actions;
+export const { addProduct, resetProducts } = productSlice.actions;
 
 export default productSlice.reducer;
