@@ -34,9 +34,7 @@ export function CartMenu() {
     let productTotal = 0;
     products.forEach((product) => {
       productTotal += product[0][1];
-      console.log(productTotal, 'in for')
     })
-    console.log(productTotal, 'out of for')
     if (productTotal > 0) {
       setTotal(dollarify(productTotal))
       dispatch(addTotal(productTotal))
@@ -60,11 +58,11 @@ export function CartMenu() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       {products.map((product) => {
-        return <div className="row"><p>{product[0][0]}</p> <p className='quantity'>x{product[1]}</p></div>
+        return <div className="row"><p className="quantity">x{product[1]} {product[0][0]}</p> <p className='amount'>{dollarify(product[0][1])}CAD</p></div>
       })}
-      <div>
-        <div><h1>Total: {total}</h1></div>
-        <Button sx={{color: 'black', marginTop: '15%'}} onClick={() => navigate('/about')}>
+      <div className="btn-container">
+        {total ? <div><h1>{total}CAD</h1></div> : <div><h1>No items yet ;(</h1></div>}
+        <Button sx={{color: 'black', marginTop: '15%', fontWeight: "800", fontSize: 'larger'}} onClick={() => navigate('/about')}>
           Checkout
         </Button>
       </div>

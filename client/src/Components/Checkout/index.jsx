@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { dollarify } from '../../utils/functions';
+import { resetProducts } from '../../state/reducers/product';
+import { resetTotal } from '../../state/reducers/total';
+import { apiCalls } from '../../utils/apiServer';
 
 export const Checkout = () => {
 
@@ -54,13 +57,11 @@ export const Checkout = () => {
     }
 
 
+    const isValid = await apiCalls.itemValidation(products, total);
+    console.log(isValid)
+
     setIsProcessing(true);
-    const response = await fetch('http://localhost:3030/api/payment', {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({amount: total})
-    })
-    const clientSecret = await response.json();
+    const clientSecret = await apiCalls.paymentIntent(total);
     console.log(clientSecret)
 
     const cardElement = elements.getElement(CardElement);
@@ -78,15 +79,19 @@ export const Checkout = () => {
       console.log('failed')
     }
 
+    console.log(paymentMethodReq.paymentMethod.id)
     const confirmedCardPayment = await stripe.confirmCardPayment(clientSecret, {
       payment_method: paymentMethodReq.paymentMethod.id
     })
+
+    console.log(confirmedCardPayment)
     
     if (confirmedCardPayment.paymentIntent.status === 'succeeded') {
+      dispatch(resetProducts(true))
+      dispatch(resetTotal())
       navigate('/')
     }
 
-    console.log(confirmedCardPayment)
 
   }
   
@@ -94,8 +99,10 @@ export const Checkout = () => {
 
   return (
     <div className="checkout-container">
-      <h1>{dollarify(total)}</h1>
-      <form className="checkout-form">
+
+
+      <h1>{total ? dollarify(total) : <h1> So lonely... </h1>}</h1>
+      {total ? <form className="checkout-form">
         <h1>Shipping details</h1>
         <TextField label="Full Name" margin="normal" color='primary' sx={{fillOpacity: '0'}} onChange={(e) => setFullName(e.target.value)} focused/>
         <TextField label="Email" margin="normal" color='primary' onChange={(e) => setEmail(e.target.value)} focused/>
@@ -106,7 +113,9 @@ export const Checkout = () => {
         <h1>Payment details</h1>
         <CardElement options={cardElementOptions}/>
         <Button disabled={isProcessing} sx={{color: 'white'}} onClick={handleFormSubmit}>{isProcessing ? 'Processing...' : `Pay ${dollarify(total)}`}</Button>
-      </form>
+      </form> : <h1>No items added ;(</h1>}
+
+
     </div>
   );
 };

@@ -8,11 +8,14 @@ export const totalSlice = createSlice({
   reducers: {
     addTotal: (state, action) => {
       state.value = action.payload
+    },
+    resetTotal: (state, action) => {
+      state.value = 0;
     }
   }
 })
 
 
 
-export const { addTotal } = totalSlice.actions;
+export const { addTotal, resetTotal } = totalSlice.actions;
 export default totalSlice.reducer;

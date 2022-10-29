@@ -16,7 +16,9 @@ export const Navbar = () => {
   return (
     <div className="navbar-container">
       <div className="left-side">
+      <Link className="logo" to="/"> 
         <img className="logo" src={gorilla} alt="gorilla logo"/>
+      </Link>
         <Link className="nav-item" to="/"> Home </Link>
         <Link className="nav-item" to="/about"> About </Link>
         <Link className="nav-item" to="/products"> Products </Link>
